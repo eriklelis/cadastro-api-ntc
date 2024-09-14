@@ -1,0 +1,15 @@
+spring:
+  config:
+    import: file:/opt/properties/application.properties
+  jpa:
+    show-sql: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}
+          jwk-set-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/certs
+server:
+  port: 8005
+  servlet:
+    context-path: /cadastros-api
