@@ -8,12 +8,13 @@ import com.hoteis.api_cadastro.clients.keycloak.request_dto.GroupsRequest;
 import com.hoteis.api_cadastro.clients.keycloak.response.ClientSecretResponse;
 import com.hoteis.api_cadastro.clients.keycloak.response.SecretResponse;
 import com.hoteis.api_cadastro.domain.Usuario;
-import com.hoteis.api_cadastro.dto.CriacaoUsuarioRequestDTO;
-import com.hoteis.api_cadastro.dto.CriacaoUsuarioResponseDTO;
+import com.hoteis.api_cadastro.dto.usuario.CriacaoUsuarioRequestDTO;
+import com.hoteis.api_cadastro.dto.usuario.CriacaoUsuarioResponseDTO;
 import com.hoteis.api_cadastro.exception.ValidacaoException;
 import com.hoteis.api_cadastro.repository.UsuarioRepository;
 import com.hoteis.api_cadastro.service.UsuarioService;
 import jakarta.transaction.Transactional;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -45,15 +46,18 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final KeycloakService keycloakService;
 
+    @Getter
+    public record CriacaoUsuarioDTO(Usuario usuario, CriacaoUsuarioResponseDTO criacaoUsuarioResponseDTO){};
+
     @Override
     @Transactional
-    public CriacaoUsuarioResponseDTO criarUsuario(CriacaoUsuarioRequestDTO criacaoUsuarioRequestDTO) {
+    public CriacaoUsuarioDTO criarUsuario(CriacaoUsuarioRequestDTO criacaoUsuarioRequestDTO) {
         credenciaisDisponiveisOuFalha(criacaoUsuarioRequestDTO.getUsername(), criacaoUsuarioRequestDTO.getEmail());
         var usuarioDB = criarUsuarioDB(Usuario.builder().username(criacaoUsuarioRequestDTO.getUsername()).build());
         var usuarioResposta = criarUsuarioKeyCloak(criacaoUsuarioRequestDTO, collectionRoleADM, roleNameADM);
         usuarioResposta.setGuid(usuarioDB.getGuid());
         usuarioResposta.setUsername(usuarioDB.getUsername());
-        return usuarioResposta;
+        return new CriacaoUsuarioDTO(usuarioDB, usuarioResposta);
     }
 
     private Usuario criarUsuarioDB(Usuario usuario) {

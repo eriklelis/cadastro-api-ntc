@@ -3,7 +3,7 @@ package com.hoteis.api_cadastro.clients.keycloak.request_dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hoteis.api_cadastro.dto.CriacaoUsuarioRequestDTO;
+import com.hoteis.api_cadastro.dto.usuario.CriacaoUsuarioRequestDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

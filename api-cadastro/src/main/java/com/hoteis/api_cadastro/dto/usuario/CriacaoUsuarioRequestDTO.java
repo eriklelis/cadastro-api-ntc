@@ -1,4 +1,4 @@
-package com.hoteis.api_cadastro.dto;
+package com.hoteis.api_cadastro.dto.usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

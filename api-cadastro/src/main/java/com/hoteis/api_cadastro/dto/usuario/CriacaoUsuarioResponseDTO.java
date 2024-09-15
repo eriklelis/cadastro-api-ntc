@@ -1,7 +1,6 @@
-package com.hoteis.api_cadastro.dto;
+package com.hoteis.api_cadastro.dto.usuario;
 
 import com.hoteis.api_cadastro.domain.Usuario;
-import com.hoteis.api_cadastro.dto.UsuarioDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
