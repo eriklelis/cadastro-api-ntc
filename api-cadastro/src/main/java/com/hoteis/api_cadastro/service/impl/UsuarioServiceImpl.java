@@ -38,23 +38,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     private String url;
     @Value("${cadatros-api.keycloak.roles-client-id}")
     private String containerId;
-    @Value("${cadatros-api.keycloak.role-name-adm}")
-    private String roleNameADM;
-    @Value("${cadatros-api.keycloak.collection-role-adm}")
-    private String collectionRoleADM;
-
     private final UsuarioRepository usuarioRepository;
     private final KeycloakService keycloakService;
 
-    @Getter
     public record CriacaoUsuarioDTO(Usuario usuario, CriacaoUsuarioResponseDTO criacaoUsuarioResponseDTO){};
 
     @Override
     @Transactional
-    public CriacaoUsuarioDTO criarUsuario(CriacaoUsuarioRequestDTO criacaoUsuarioRequestDTO) {
+    public CriacaoUsuarioDTO criarUsuario(CriacaoUsuarioRequestDTO criacaoUsuarioRequestDTO, String collectionRole, String roleName) {
         credenciaisDisponiveisOuFalha(criacaoUsuarioRequestDTO.getUsername(), criacaoUsuarioRequestDTO.getEmail());
         var usuarioDB = criarUsuarioDB(Usuario.builder().username(criacaoUsuarioRequestDTO.getUsername()).build());
-        var usuarioResposta = criarUsuarioKeyCloak(criacaoUsuarioRequestDTO, collectionRoleADM, roleNameADM);
+        var usuarioResposta = criarUsuarioKeyCloak(criacaoUsuarioRequestDTO, collectionRole, roleName);
         usuarioResposta.setGuid(usuarioDB.getGuid());
         usuarioResposta.setUsername(usuarioDB.getUsername());
         return new CriacaoUsuarioDTO(usuarioDB, usuarioResposta);

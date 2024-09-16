@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("funcionario")
+@RequestMapping("cliente")
 @RequiredArgsConstructor
-public class FuncionarioController {
+public class ClienteController {
     private final FuncionarioService funcionarioService;
 
     @PostMapping
-    public ResponseEntity<CriacaoFuncionarioResponseDTO> criarFuncionarioKeycloak(@RequestBody CriacaoFuncionarioRequestDTO criacaoFuncionarioRequestDTO) {
+    public ResponseEntity<CriacaoFuncionarioResponseDTO> criarClienteKeycloak(@RequestBody CriacaoFuncionarioRequestDTO criacaoFuncionarioRequestDTO) {
         var response = funcionarioService.criarFuncionario(criacaoFuncionarioRequestDTO);
         var location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{guid}")

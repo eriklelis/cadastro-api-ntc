@@ -5,5 +5,5 @@ import com.hoteis.api_cadastro.dto.usuario.CriacaoUsuarioResponseDTO;
 import com.hoteis.api_cadastro.service.impl.UsuarioServiceImpl;
 
 public interface UsuarioService {
-    UsuarioServiceImpl.CriacaoUsuarioDTO criarUsuario(CriacaoUsuarioRequestDTO criacaoUsuarioRequestDTO);
+    UsuarioServiceImpl.CriacaoUsuarioDTO criarUsuario(CriacaoUsuarioRequestDTO criacaoUsuarioRequestDTO,String collectionRole, String roleName);
 }
